@@ -6,10 +6,8 @@ export interface CardProps {
 
 export default function Card({children}: CardProps) {
   return (
-    <div className={"shadow box-content p-4 rounded-xl max-w-md mx-auto"}>
-      <div>
-        {children}
-      </div>
+    <div className={"shadow p-8 rounded-xl bg-white dark:bg-gray-800 dark:text-white flex-1"}>
+      {children}
     </div>
   )
 }
