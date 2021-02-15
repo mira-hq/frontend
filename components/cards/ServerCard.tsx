@@ -1,6 +1,10 @@
 import React from "react";
 import Card from "./Card";
 import Button, { Type } from "../Button";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSpinner } from "@fortawesome/free-solid-svg-icons";
+import { ButtonGroup } from "../ButtonGroup";
+import { is } from "@babel/types";
 
 export interface Server {
   uuid: string;
@@ -37,14 +41,17 @@ export default function ServerCard({
   } = server;
   const actions: React.ReactNode[] = [];
 
+  const isTransientStatus = status == ServerStatus.STOPPING || status === ServerStatus.STARTING;
+
   if (status === ServerStatus.RUNNING || status === ServerStatus.STARTING) {
     actions.push(
       ...[
         <Button
           text={"Stop"}
           type={Type.DANGER}
-          disabled={status === ServerStatus.STARTING}
+          disabled={isTransientStatus}
           key={status}
+          onClick={() => console.log("Stopping...")}
         />,
       ]
     );
@@ -56,13 +63,28 @@ export default function ServerCard({
       <Button
         text={"Start"}
         type={Type.SUCCESS}
-        disabled={status === ServerStatus.STOPPING}
+        disabled={isTransientStatus}
         key={status}
+        onClick={() => console.log("Starting...")}
       />
     );
   }
 
-  const actionsWrapper = <>{actions}</>;
+  if (status !== ServerStatus.TERMINATED) {
+    actions.push(
+      ...[
+        <Button
+          text={"Terminate"}
+          type={Type.DANGER}
+          disabled={isTransientStatus}
+          key={status}
+          onClick={() => console.log("Terminating...")}
+        />,
+      ]
+    )
+  }
+
+  const actionsWrapper = <ButtonGroup>{actions}</ButtonGroup>;
 
   const timeRemainingText = ` (${maxUptime - uptime}  minutes remaining )`;
 
@@ -75,12 +97,14 @@ export default function ServerCard({
           <h2 className={"text-2xl"}>{serverName}</h2>
           <p>
             <span className={"uppercase text-sm tracking-wide font-bold"}>
-              {status}
+             {status} {isTransientStatus && <FontAwesomeIcon icon={faSpinner} className={"animate-spin"}/>}
             </span>
             {shouldShowRemainingTime && timeRemainingText}
           </p>
-          <p className={"font-bold"}>{address}.mira-hq.com</p>
-          <p>{playersOnline} players online</p>
+          <p>
+            Connect with <span className={"font-bold"}>{address}.mira-hq.com</span>
+          </p>
+          { !isTransientStatus && (<p>{playersOnline} players online</p>) }
         </>
       }
       footer={actionsWrapper}

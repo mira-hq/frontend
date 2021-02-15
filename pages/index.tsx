@@ -52,7 +52,8 @@ export default function Home(): React.ReactNode {
   return (
     <div className="bg-white dark:bg-black min-h-screen w-screen flex">
       <div className={"container mx-auto px-10"}>
-        <CardList cards={[...serverCards, addServerCard]} />
+        <CardList cards={serverCards} />
+        <CardList cards={addServerCard}/>
       </div>
     </div>
   );
