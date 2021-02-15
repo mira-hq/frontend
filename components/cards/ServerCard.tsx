@@ -4,7 +4,6 @@ import Button, { Type } from "../Button";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSpinner } from "@fortawesome/free-solid-svg-icons";
 import { ButtonGroup } from "../ButtonGroup";
-import { is } from "@babel/types";
 
 export interface Server {
   uuid: string;
@@ -88,7 +87,8 @@ export default function ServerCard({
 
   const timeRemainingText = ` (${maxUptime - uptime}  minutes remaining )`;
 
-  const shouldShowRemainingTime = status == ServerStatus.RUNNING;
+  const canConnect = status !== ServerStatus.TERMINATED && status !== ServerStatus.STOPPING && status !== ServerStatus.STOPPED
+  const isRunning = status == ServerStatus.RUNNING;
 
   return (
     <Card
@@ -99,12 +99,14 @@ export default function ServerCard({
             <span className={"uppercase text-sm tracking-wide font-bold"}>
              {status} {isTransientStatus && <FontAwesomeIcon icon={faSpinner} className={"animate-spin"}/>}
             </span>
-            {shouldShowRemainingTime && timeRemainingText}
+            {isRunning && timeRemainingText}
           </p>
+          { canConnect && (
           <p>
             Connect with <span className={"font-bold"}>{address}.mira-hq.com</span>
           </p>
-          { !isTransientStatus && (<p>{playersOnline} players online</p>) }
+          )}
+          { isRunning && (<p>{playersOnline} players online</p>) }
         </>
       }
       footer={actionsWrapper}
