@@ -1,7 +1,7 @@
 import React from "react";
 import ServerCard, {
   Server,
-  ServerStatus
+  ServerStatus,
 } from "../components/cards/ServerCard";
 import Card from "../components/cards/Card";
 import Button, { Type } from "../components/Button";
@@ -16,7 +16,7 @@ export default function Home(): React.ReactNode {
       uptime: 20,
       maxUptime: 300,
       address: "badger",
-      playersOnline: 0
+      playersOnline: 0,
     },
     {
       uuid: "2",
@@ -25,7 +25,7 @@ export default function Home(): React.ReactNode {
       uptime: 20,
       maxUptime: 300,
       address: "koala",
-      playersOnline: 9
+      playersOnline: 9,
     },
     {
       uuid: "1",
@@ -34,22 +34,20 @@ export default function Home(): React.ReactNode {
       uptime: 20,
       maxUptime: 3000,
       address: "monkey",
-      playersOnline: 0
-    }
+      playersOnline: 0,
+    },
   ];
 
   const serverCards = servers.map((server) => {
     return <ServerCard server={server} key={server.uuid} />;
   });
 
-  const addServerCard = (
-    [
-      <Card
-        key={"add server"}
-        footer={<Button text={"Start a new server"} type={Type.SUCCESS} />}
-      />]
-
-  );
+  const addServerCard = [
+    <Card
+      key={"add server"}
+      footer={<Button text={"Start a new server"} type={Type.SUCCESS} />}
+    />,
+  ];
 
   return (
     <div className="bg-white dark:bg-black min-h-screen w-screen flex">

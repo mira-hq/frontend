@@ -40,7 +40,8 @@ export default function ServerCard({
   } = server;
   const actions: React.ReactNode[] = [];
 
-  const isTransientStatus = status == ServerStatus.STOPPING || status === ServerStatus.STARTING;
+  const isTransientStatus =
+    status == ServerStatus.STOPPING || status === ServerStatus.STARTING;
 
   if (status === ServerStatus.RUNNING || status === ServerStatus.STARTING) {
     actions.push(
@@ -80,14 +81,17 @@ export default function ServerCard({
           onClick={() => console.log("Terminating...")}
         />,
       ]
-    )
+    );
   }
 
   const actionsWrapper = <ButtonGroup>{actions}</ButtonGroup>;
 
   const timeRemainingText = ` (${maxUptime - uptime}  minutes remaining )`;
 
-  const canConnect = status !== ServerStatus.TERMINATED && status !== ServerStatus.STOPPING && status !== ServerStatus.STOPPED
+  const canConnect =
+    status !== ServerStatus.TERMINATED &&
+    status !== ServerStatus.STOPPING &&
+    status !== ServerStatus.STOPPED;
   const isRunning = status == ServerStatus.RUNNING;
 
   return (
@@ -97,16 +101,20 @@ export default function ServerCard({
           <h2 className={"text-2xl"}>{serverName}</h2>
           <p>
             <span className={"uppercase text-sm tracking-wide font-bold"}>
-             {status} {isTransientStatus && <FontAwesomeIcon icon={faSpinner} className={"animate-spin"}/>}
+              {status}{" "}
+              {isTransientStatus && (
+                <FontAwesomeIcon icon={faSpinner} className={"animate-spin"} />
+              )}
             </span>
             {isRunning && timeRemainingText}
           </p>
-          { canConnect && (
-          <p>
-            Connect with <span className={"font-bold"}>{address}.mira-hq.com</span>
-          </p>
+          {canConnect && (
+            <p>
+              Connect with{" "}
+              <span className={"font-bold"}>{address}.mira-hq.com</span>
+            </p>
           )}
-          { isRunning && (<p>{playersOnline} players online</p>) }
+          {isRunning && <p>{playersOnline} players online</p>}
         </>
       }
       footer={actionsWrapper}
