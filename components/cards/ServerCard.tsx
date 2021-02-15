@@ -17,44 +17,73 @@ export enum ServerStatus {
   STARTING = "Starting",
   STOPPING = "Stopping",
   STOPPED = "Stopped",
-  TERMINATED = "Terminated"
+  TERMINATED = "Terminated",
 }
 
 export interface ServerCardProps {
   server: Server;
 }
 
-export default function ServerCard({ server }: ServerCardProps) {
-  const { serverName, status, uptime, maxUptime, address, playersOnline } = server;
+export default function ServerCard({
+  server,
+}: ServerCardProps): React.ReactElement {
+  const {
+    serverName,
+    status,
+    uptime,
+    maxUptime,
+    address,
+    playersOnline,
+  } = server;
   const actions: React.ReactNode[] = [];
 
-  if (status === ServerStatus.RUNNING) {
-    actions.push(...[
-        <Button text={"Stop"} type={Type.DANGER} />
+  if (status === ServerStatus.RUNNING || status === ServerStatus.STARTING) {
+    actions.push(
+      ...[
+        <Button
+          text={"Stop"}
+          type={Type.DANGER}
+          disabled={status === ServerStatus.STARTING}
+          key={status}
+        />,
       ]
     );
-  } else if (status === ServerStatus.STOPPED) {
+  } else if (
+    status === ServerStatus.STOPPED ||
+    status === ServerStatus.STOPPING
+  ) {
     actions.push(
-      <Button text={"Start"} type={Type.SUCCESS} />
+      <Button
+        text={"Start"}
+        type={Type.SUCCESS}
+        disabled={status === ServerStatus.STOPPING}
+        key={status}
+      />
     );
   }
 
-  let timeRemainingText = " (" + (maxUptime - uptime) + " minutes remaining )";
+  const actionsWrapper = <>{actions}</>;
 
-  const shouldShowRemainingTime = status == ServerStatus.RUNNING
+  const timeRemainingText = ` (${maxUptime - uptime}  minutes remaining )`;
+
+  const shouldShowRemainingTime = status == ServerStatus.RUNNING;
 
   return (
-    <Card>
-      <>
-        <h2 className={"text-2xl"}>{serverName}</h2>
-        <p>
-          <span className={"uppercase text-sm tracking-wide font-bold"}>{status}</span>
-          {shouldShowRemainingTime && timeRemainingText}
-        </p>
-        <p className={"font-bold"}>{address}.mira-hq.com</p>
-        <p>{playersOnline} players online</p>
-        {actions}
-      </>
-    </Card>
+    <Card
+      content={
+        <>
+          <h2 className={"text-2xl"}>{serverName}</h2>
+          <p>
+            <span className={"uppercase text-sm tracking-wide font-bold"}>
+              {status}
+            </span>
+            {shouldShowRemainingTime && timeRemainingText}
+          </p>
+          <p className={"font-bold"}>{address}.mira-hq.com</p>
+          <p>{playersOnline} players online</p>
+        </>
+      }
+      footer={actionsWrapper}
+    />
   );
 }
