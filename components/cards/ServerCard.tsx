@@ -1,27 +1,11 @@
 import React from "react";
 import Card from "./Card";
-import Button, { Type } from "../Button";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faSpinner } from "@fortawesome/free-solid-svg-icons";
 import { ButtonGroup } from "../ButtonGroup";
-
-export interface Server {
-  uuid: string;
-  serverName: string;
-  address: string;
-  status: ServerStatus;
-  uptime: number;
-  maxUptime: number;
-  playersOnline: number;
-}
-
-export enum ServerStatus {
-  RUNNING = "Running",
-  STARTING = "Starting",
-  STOPPING = "Stopping",
-  STOPPED = "Stopped",
-  TERMINATED = "Terminated",
-}
+import Server from "../../lib/Server";
+import { ServerStatus } from "../../lib/ServerStatus";
+import Spinner from "../Spinner";
+import { Type } from "../Type";
+import Button from "../Button";
 
 export interface ServerCardProps {
   server: Server;
@@ -101,10 +85,7 @@ export default function ServerCard({
           <h2 className={"text-2xl"}>{serverName}</h2>
           <p>
             <span className={"uppercase text-sm tracking-wide font-bold"}>
-              {status}{" "}
-              {isTransientStatus && (
-                <FontAwesomeIcon icon={faSpinner} className={"animate-spin"} />
-              )}
+              {status} {isTransientStatus && <Spinner />}
             </span>
             {isRunning && timeRemainingText}
           </p>

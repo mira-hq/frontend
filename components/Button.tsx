@@ -1,17 +1,12 @@
 import classnames from "classnames";
 import React from "react";
+import { Type } from "./Type";
 
 export interface ButtonProps {
   text: string;
   type: Type;
   disabled?: boolean;
   onClick?: () => void;
-}
-
-export enum Type {
-  DANGER,
-  SUCCESS,
-  WARNING,
 }
 
 export default function Button({
