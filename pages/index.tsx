@@ -49,7 +49,7 @@ export default function Home(): React.ReactNode {
   return (
     <div className="bg-white dark:bg-black min-h-screen w-screen flex">
       <div className={"container mx-auto px-10"}>
-        {error && <Banner message={JSON.stringify(error)} />}
+        {error && <Banner message={JSON.stringify(error)} type={Type.DANGER} />}
         {loading && <Spinner />}
         <CardList cards={serverCards} />
         <CardList cards={addServerCard} />
