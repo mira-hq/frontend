@@ -10,27 +10,27 @@ import { Banner } from "../components/Banner";
 import { Type } from "../components/Type";
 
 const query = gql`
-  query MyQuery {
-    queryServer(filter: {}) {
-      playersOnline
-      serverName
-      status
-      uuid
-      uptime
-      owner {
-        uuid
-        email
-      }
+    query {
+        servers{
+            uuid,
+            address,
+            playersOnline,
+            maxUptime,
+            uptime,
+            serverName,
+            status
+        }
     }
-  }
 `;
 
 export default function Home(): React.ReactNode {
   const { loading, error, data }: QueryResult = useQuery<Server[]>(query);
 
+  console.log(data)
+
   let servers: Server[] = [];
-  if (data !== undefined && data.queryServer !== undefined) {
-    servers = data.queryServer as Server[];
+  if (data !== undefined) {
+    servers = data.servers as Server[];
   }
 
   console.log(servers);

@@ -1,7 +1,16 @@
 {
   "name": "mira-hq",
-  "version": "0.1.0",
-  "private": true,
+  "version": "1.0.0",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mira-hq/frontend.git"
+  },
+  "author": "Jerred Shepherd",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/mira-hq/frontend/issues"
+  },
+  "homepage": "https://github.com/mira-hq/frontend#readme",
   "scripts": {
     "dev": "next dev",
     "build": "next build && next export",
