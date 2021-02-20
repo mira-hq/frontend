@@ -1,5 +1,5 @@
 {
-  "name": "mira-hq",
+  "name": "@mira-hq/frontend",
   "version": "1.0.0",
   "repository": {
     "type": "git",
@@ -30,6 +30,7 @@
     "@fortawesome/fontawesome-svg-core": "^1.2.34",
     "@fortawesome/free-solid-svg-icons": "^5.15.2",
     "@fortawesome/react-fontawesome": "^0.1.14",
+    "@mira-hq/model": "^1.0.10",
     "autoprefixer": "^10.2.4",
     "classnames": "^2.2.6",
     "graphql": "^15.5.0",

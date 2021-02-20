@@ -5,7 +5,7 @@ import {
   HttpLink,
   InMemoryCache,
 } from "@apollo/client";
-import Server from "./Server";
+import { Server } from "@mira-hq/model/dist/index";
 
 let apolloClient: ApolloClient<ApplicationState>;
 

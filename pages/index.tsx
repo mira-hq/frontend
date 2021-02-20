@@ -2,7 +2,7 @@ import React from "react";
 import Card from "../components/cards/Card";
 import Button from "../components/Button";
 import CardList from "../components/cards/CardList";
-import Server from "../lib/Server";
+import { Server } from "@mira-hq/model/dist/index";
 import ServerCard from "../components/cards/ServerCard";
 import { gql, QueryResult, useQuery } from "@apollo/client";
 import Spinner from "../components/Spinner";
@@ -10,23 +10,23 @@ import { Banner } from "../components/Banner";
 import { Type } from "../components/Type";
 
 const query = gql`
-    query {
-        servers{
-            uuid,
-            address,
-            playersOnline,
-            maxUptime,
-            uptime,
-            serverName,
-            status
-        }
+  query {
+    servers {
+      uuid
+      address
+      playersOnline
+      maxUptime
+      uptime
+      serverName
+      status
     }
+  }
 `;
 
 export default function Home(): React.ReactNode {
   const { loading, error, data }: QueryResult = useQuery<Server[]>(query);
 
-  console.log(data)
+  console.log(data);
 
   let servers: Server[] = [];
   if (data !== undefined) {

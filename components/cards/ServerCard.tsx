@@ -1,11 +1,10 @@
 import React from "react";
 import Card from "./Card";
 import { ButtonGroup } from "../ButtonGroup";
-import Server from "../../lib/Server";
-import { ServerStatus } from "../../lib/ServerStatus";
 import Spinner from "../Spinner";
 import { Type } from "../Type";
 import Button from "../Button";
+import { Server, ServerStatus } from "@mira-hq/model/dist/index";
 
 export interface ServerCardProps {
   server: Server;
@@ -25,9 +24,9 @@ export default function ServerCard({
   const actions: React.ReactNode[] = [];
 
   const isTransientStatus =
-    status == ServerStatus.STOPPING || status === ServerStatus.STARTING;
+    status == ServerStatus.Stopping || status === ServerStatus.Starting;
 
-  if (status === ServerStatus.RUNNING || status === ServerStatus.STARTING) {
+  if (status === ServerStatus.Running || status === ServerStatus.Starting) {
     actions.push(
       ...[
         <Button
@@ -40,8 +39,8 @@ export default function ServerCard({
       ]
     );
   } else if (
-    status === ServerStatus.STOPPED ||
-    status === ServerStatus.STOPPING
+    status === ServerStatus.Stopped ||
+    status === ServerStatus.Stopping
   ) {
     actions.push(
       <Button
@@ -54,7 +53,7 @@ export default function ServerCard({
     );
   }
 
-  if (status !== ServerStatus.TERMINATED) {
+  if (status !== ServerStatus.Terminated) {
     actions.push(
       ...[
         <Button
@@ -73,10 +72,10 @@ export default function ServerCard({
   const timeRemainingText = ` (${maxUptime - uptime}  minutes remaining )`;
 
   const canConnect =
-    status !== ServerStatus.TERMINATED &&
-    status !== ServerStatus.STOPPING &&
-    status !== ServerStatus.STOPPED;
-  const isRunning = status == ServerStatus.RUNNING;
+    status !== ServerStatus.Terminated &&
+    status !== ServerStatus.Stopping &&
+    status !== ServerStatus.Stopped;
+  const isRunning = status == ServerStatus.Running;
 
   return (
     <Card
