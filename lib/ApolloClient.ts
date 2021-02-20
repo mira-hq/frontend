@@ -14,7 +14,7 @@ export interface ApplicationState {
 }
 
 function createApolloClient(): ApolloClient<ApplicationState> {
-  const endpoint = "http://localhost:4000/";
+  const endpoint = "https://api.mira-hq.com/";
   return new ApolloClient<ApplicationState>({
     ssrMode: typeof window === "undefined", // set to true for SSR
     link: new HttpLink({
