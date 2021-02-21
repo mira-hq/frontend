@@ -9,8 +9,7 @@ import ApplicationState from "./ApplicationState";
 
 let apolloClient: ApolloClient<ApplicationState>;
 
-const endpoint = "http://localhost:4000";
-
+const endpoint = "https://api.mira-hq.com/";
 function createApolloClient(): ApolloClient<ApplicationState> {
   return new ApolloClient<ApplicationState>({
     ssrMode: typeof window === "undefined", // set to true for SSR
