@@ -5,16 +5,13 @@ import {
   HttpLink,
   InMemoryCache,
 } from "@apollo/client";
-import { Server } from "@mira-hq/model/dist/index";
+import ApplicationState from "./ApplicationState";
 
 let apolloClient: ApolloClient<ApplicationState>;
 
-export interface ApplicationState {
-  servers?: Server[];
-}
+const endpoint = "http://localhost:4000";
 
 function createApolloClient(): ApolloClient<ApplicationState> {
-  const endpoint = "https://api.mira-hq.com/";
   return new ApolloClient<ApplicationState>({
     ssrMode: typeof window === "undefined", // set to true for SSR
     link: new HttpLink({
@@ -29,8 +26,6 @@ export function initializeApollo(
 ): ApolloClient<ApplicationState> {
   const _apolloClient = apolloClient ?? createApolloClient();
 
-  // If your page has Next.js data fetching methods that use Apollo Client,
-  // the initial state gets hydrated here
   if (initialState) {
     // Get existing cache, loaded during client side data fetching
     const existingCache = _apolloClient.extract();

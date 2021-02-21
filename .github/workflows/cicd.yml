@@ -28,7 +28,6 @@ jobs:
       - name: Install dependencies
         run: npm ci
       - run: npm run lint
-      - run: npm test
   build:
     runs-on: ubuntu-latest
     strategy:

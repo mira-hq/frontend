@@ -5,8 +5,7 @@
     "ecmaFeatures": {
       "jsx": true
     },
-    "project": "./tsconfig.json",
-    "createDefaultProgram": true
+    "project": "./tsconfig.json"
   },
   "settings": {
     "react": {

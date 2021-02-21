@@ -5,7 +5,7 @@ import { ApolloProvider } from "@apollo/client";
 import { useApollo } from "../lib/ApolloClient";
 
 function MyApp({ Component, pageProps }: AppProps): React.ReactNode {
-  const apolloClient = useApollo(pageProps.initialApolloState);
+  const apolloClient = useApollo({});
 
   return (
     <ApolloProvider client={apolloClient}>
